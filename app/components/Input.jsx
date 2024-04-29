@@ -7,7 +7,7 @@ const Input = ({ handleSearch, setLocation }) => {
     <form>
       <input
         type="text"
-        placeholder="Search City"
+        placeholder="Search City And Press Enter"
         onKeyDown={handleSearch}
         onChange={(e) => setLocation(e.target.value)}
         className={styles.input}
