@@ -14,7 +14,7 @@ const Home = () => {
 
   const url = `http://api.weatherapi.com/v1/forecast.json?key=8dba1270f9ca41689af174404242704&q=${location}&days=7&aqi=yes&alerts=yes`;
 
-  const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleSearch = async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
       try {
@@ -75,7 +75,7 @@ const Home = () => {
   } else if (error !== "") {
     content = (
       <div>
-        <p>{error}</p>
+        <p style={{ textAlign: "center", marginTop: "5rem" }}>{error}</p>
       </div>
     );
   } else {

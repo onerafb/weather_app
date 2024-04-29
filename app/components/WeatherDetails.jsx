@@ -1,27 +1,8 @@
 import styles from "../styles/weather_details.module.css";
 
-interface WeatherDetailsProps {
-  data: {
-    current: {
-      wind_mph: number;
-      humidity: number;
-      wind_dir: string;
-      pressure_mb: number;
-      feelslike_f: number;
-      vis_km: number;
-    };
-    forecast: {
-      forecastday: {
-        astro: {
-          sunrise: string;
-          sunset: string;
-        };
-      }[];
-    };
-  };
-}
 
-const WeatherDetails = ({ data }: WeatherDetailsProps) => {
+
+const WeatherDetails = ({ data }) => {
   return (
     <div className={styles.weather_detail_container}>
       <div>

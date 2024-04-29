@@ -1,31 +1,12 @@
 import styles from "../styles/week.module.css";
 
-interface DayForecast {
-  date: string;
-  day: {
-    condition: {
-      icon: string;
-      text: string;
-    };
-    maxtemp_f: number;
-    mintemp_f: number;
-  };
-}
-
-interface WeekForecastProps {
-  data: {
-    forecast: {
-      forecastday: DayForecast[];
-    };
-  };
-}
-const WeekForecast = ({ data }: WeekForecastProps) => {
-  const convertFahrenheitToCelsius = (fahrenheit: number): number => {
+const WeekForecast = ({ data }) => {
+  const convertFahrenheitToCelsius = (fahrenheit) => {
     return Math.round((fahrenheit - 32) / 1.8);
   };
 
-  const getShortWeekday = (dateString: string): string => {
-    const options: Intl.DateTimeFormatOptions = { weekday: "short" };
+  const getShortWeekday = (dateString) => {
+    const options = { weekday: "short" };
     return new Date(dateString).toLocaleString("en-US", options);
   };
   return (

@@ -2,12 +2,9 @@
 
 import styles from "../styles/input.module.css"
 
-interface InputProps {
-  handleSearch: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  setLocation: React.Dispatch<React.SetStateAction<string>>;
-}
 
-const Input = ({ handleSearch, setLocation }: InputProps) => {
+
+const Input = ({ handleSearch, setLocation }) => {
   return (
     <form>
       <input

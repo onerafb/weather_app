@@ -1,23 +1,9 @@
 import { getCurrentDate } from "../utils/Date";
 import styles from "../styles/current.module.css";
 
-interface CurrentProps {
-  data?: {
-    current: {
-      condition: {
-        icon: string;
-        text: string;
-      };
-      temp_f: number;
-    };
-    location: {
-      name: string;
-      region: string;
-    };
-  };
-}
 
-const Current = ({ data }: CurrentProps) => {
+
+const Current = ({ data }) => {
   const currentDate = getCurrentDate();
 
   if (!data || !data.current || !data.location) {
