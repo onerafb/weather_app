@@ -1,8 +1,6 @@
 "use client";
 
-import styles from "../styles/input.module.css"
-
-
+import styles from "../styles/input.module.css";
 
 const Input = ({ handleSearch, setLocation }) => {
   return (
