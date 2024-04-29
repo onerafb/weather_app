@@ -1,0 +1,32 @@
+.week_con {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.week_con > div {
+  width: fit-content;
+  padding: var(--step-2);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--step--1);
+}
+.week_con > div > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid black;
+  padding: var(--step--4);
+}
+.week_date {
+  width: 3rem;
+}
+.week_H {
+  margin-right: var(--step-2);
+}
+@media (max-width: 600px) {
+  .week_con {
+    margin-bottom: 3rem;
+  }
+}

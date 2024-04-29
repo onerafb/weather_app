@@ -1,0 +1,16 @@
+.input {
+  width: 50%;
+  padding: var(--step--4);
+  margin: var(--step-1);
+  border: none;
+  outline: none;
+  border: 1px solid black;
+}
+.input::placeholder {
+  font-size: var(--step--2);
+}
+@media (max-width: 600px) {
+  .input {
+    width: 90%;
+  }
+}

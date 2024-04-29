@@ -1,0 +1,29 @@
+.current_date_con {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--step-3);
+}
+.current_first {
+  display: flex;
+  flex-direction: column;
+  gap: var(--step--1);
+  width: 50%;
+}
+.current_date {
+  font-size: var(--step-1);
+}
+.current_temp {
+  font-size: var(--step-3);
+  font-weight: 500;
+  margin-top: var(--step-1);
+}
+.current_second {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+.current_img {
+  width: var(--step-8);
+  height: var(--step-8);
+}

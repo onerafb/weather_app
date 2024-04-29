@@ -1,95 +1,101 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import React, { useState, useEffect } from "react";
+import Input from "./components/Input";
+import Current from "./components/Current";
+import WeekForecast from "./components/WeekForecast";
+import WeatherDetails from "./components/WeatherDetails";
+import styles from "./styles/page.module.css";
+const Home = () => {
+  // State
+  const [data, setData] = useState({});
+  const [location, setLocation] = useState("satara");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
+  const url = `http://api.weatherapi.com/v1/forecast.json?key=8dba1270f9ca41689af174404242704&q=${location}&days=7&aqi=yes&alerts=yes`;
+
+  const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      try {
+        setLoading(true);
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error();
+        }
+        const data = await response.json();
+        setData(data);
+        setError("");
+      } catch (error) {
+        setError("City not found. Enter a valid city.");
+        setData({});
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  // Fetch data on initial render
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error();
+        }
+        const data = await response.json();
+        setData(data);
+        setError("");
+      } catch (error) {
+        setError("City not found. Enter a valid city.");
+        setData({});
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Content based on data, loading, and error
+  let content;
+  if (loading) {
+    content = (
+      <div style={{ textAlign: "center", marginTop: "5rem" }}>
+        <h2>Loading...</h2>
+      </div>
+    );
+  } else if (Object.keys(data).length === 0 && error === "") {
+    content = (
+      <div style={{ textAlign: "center", marginTop: "5rem" }}>
+        <h2>Loading...</h2>
+      </div>
+    );
+  } else if (error !== "") {
+    content = (
+      <div>
+        <p>{error}</p>
+      </div>
+    );
+  } else {
+    content = (
+      <div className={styles.info_container}>
         <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+          <Current data={data} />
+          <WeatherDetails data={data} />
         </div>
+        <WeekForecast data={data} />
       </div>
+    );
+  }
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+  return (
+    <div className={styles.main}>
+      <Input handleSearch={handleSearch} setLocation={setLocation} />
+      {content}
+    </div>
   );
-}
+};
+
+export default Home;
