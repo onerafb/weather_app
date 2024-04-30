@@ -27,7 +27,7 @@ const Home = () => {
         setData(data);
         setError("");
       } catch (error) {
-        setError("City not found. Enter a valid city.");
+        setError("City not found / Slow internet connection.");
         setData({});
       } finally {
         setLoading(false);
@@ -48,7 +48,7 @@ const Home = () => {
         setData(data);
         setError("");
       } catch (error) {
-        setError("City not found. Enter a valid city.");
+        setError("City not found / Slow internet connection.");
         setData({});
       } finally {
         setLoading(false);
